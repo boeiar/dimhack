@@ -449,10 +449,10 @@ int i;
   {
     AdcResult = AD0DR;
   }while((AdcResult&0x80000000) == 0);
-  AdcResult = (AdcResult >> 12) & 0xF;
   //BoE
-  tmpDACR_Value = ((AdcResult + 1) << 6 ) - 1; 
+  tmpDACR_Value = (AdcResult >> 6) & 0X3ff;
   DACR_bit.VALUE=tmpDACR_Value;
+  AdcResult = (AdcResult >> 12) & 0xF;
   for (Count = 0;Count < 16; ++Count)
   {
     if(AdcResult)
